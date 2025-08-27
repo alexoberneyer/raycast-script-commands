@@ -44,7 +44,7 @@ def main():
         client = OpenAI(api_key=api_key)
 
         # Create prompt for text polishing
-        prompt = f"""Please polish and improve the following text. Make it more clear, professional, and well-structured while maintaining the original meaning and tone. Fix any grammar, spelling, or punctuation issues:
+        prompt = f"""Please polish and improve the following text. Make it more clear, professional, and well-structured while maintaining the original language, meaning and tone. Fix any grammar, spelling, or punctuation issues:
 
 {clipboard_content}"""
 
