@@ -51,11 +51,11 @@ def main():
 
         # Create input for text polishing based on selected mode
         if choice == "1":
-            input_text = f"""Polish and improve the following text. Make it more clear, professional, and well-structured while maintaining the original meaning and tone. Fix any grammar, spelling, or punctuation issues. Return only the polished text without any introduction or explanation:
+            input_text = f"""Polish and improve the following text. Make it more clear, professional, and well-structured while maintaining the original language, meaning and tone. Fix any grammar, spelling, or punctuation issues. Return only the polished text without any introduction or explanation:
 
 {clipboard_content}"""
         elif choice == "2":
-            input_text = f"""Polish and improve the following text. Make it more clear, professional, and well-structured while maintaining the original meaning and tone. Fix any grammar, spelling, or punctuation issues. Additionally, enhance the text by adding appropriate Microsoft Teams emojis from this list where suitable:
+            input_text = f"""Polish and improve the following text. Make it more clear, professional, and well-structured while maintaining the original language, meaning and tone. Fix any grammar, spelling, or punctuation issues. Additionally, enhance the text by adding appropriate Microsoft Teams emojis from this list where suitable:
 - (smile) for positive/happy content
 - (y) for approval/thumbsup
 - (rocket) for progress/launch/success
@@ -68,7 +68,7 @@ Return only the polished text without any introduction or explanation:
 
 {clipboard_content}"""
         else:  # choice == "3"
-            input_text = f"""Polish and improve the following text. Make it more clear, professional, and well-structured while maintaining the original meaning and tone. Fix any grammar, spelling, or punctuation issues. Additionally, enhance the text by adding appropriate emojis where suitable:
+            input_text = f"""Polish and improve the following text. Make it more clear, professional, and well-structured while maintaining the original language, meaning and tone. Fix any grammar, spelling, or punctuation issues. Additionally, enhance the text by adding appropriate emojis where suitable:
 - 😃 for positive/happy content
 - 👍 for approval/thumbsup
 - 🚀 for progress/launch/success
