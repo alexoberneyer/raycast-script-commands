@@ -43,21 +43,20 @@ def main():
         # Initialize OpenAI client
         client = OpenAI(api_key=api_key)
 
-        # Create prompt for text polishing
-        prompt = f"""Please polish and improve the following text. Make it more clear, professional, and well-structured while maintaining the original language, meaning and tone. Fix any grammar, spelling, or punctuation issues:
+        # Create input for text polishing
+        input_text = f"""Please polish and improve the following text. Make it more clear, professional, and well-structured while maintaining the original language, meaning and tone. Fix any grammar, spelling, or punctuation issues:
 
 {clipboard_content}"""
 
-        # Call OpenAI API
-        response = client.chat.completions.create(
+        # Call OpenAI API using GPT-5 responses API
+        response = client.responses.create(
             model="gpt-5",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.3,
-            max_tokens=2000,
+            input=input_text,
+            text={"verbosity": "low"},
         )
 
         # Extract polished text
-        polished_text = response.choices[0].message.content.strip()
+        polished_text = response.output_text.strip()
 
         # Copy polished text back to clipboard
         pyperclip.copy(polished_text)
