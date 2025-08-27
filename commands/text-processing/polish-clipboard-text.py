@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/Users/alex/Code/raycast-script-commands/.venv/bin/python
 
 # Required parameters
 # @raycast.schemaVersion 1
@@ -15,9 +15,13 @@ import os
 import sys
 import pyperclip
 from openai import OpenAI
+from dotenv import load_dotenv
 
 
 def main():
+    # Load environment variables from .env file
+    load_dotenv()
+    
     # Check for OpenAI API key
     api_key = os.environ.get("OPENAI_API_KEY")
     if not api_key:

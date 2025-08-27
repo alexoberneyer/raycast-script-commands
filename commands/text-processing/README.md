@@ -19,11 +19,14 @@ A Raycast script command that uses OpenAI's API to polish and improve text from 
 
 2. **Set up OpenAI API key:**
    - Get your API key from [OpenAI Platform](https://platform.openai.com/account/api-keys)
-   - Set the environment variable:
+   - Create a `.env` file in the project root:
+     ```
+     OPENAI_API_KEY=your-api-key-here
+     ```
+   - Or set the environment variable:
      ```bash
      export OPENAI_API_KEY="your-api-key-here"
      ```
-   - Or add it to your shell profile (`~/.zshrc`, `~/.bashrc`, etc.)
 
 3. **Install in Raycast:**
    - Copy the script to your Raycast script commands directory
