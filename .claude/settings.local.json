@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat:*)",
+      "Bash(uv:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(chmod:*)",
+      "Bash(export OPENAI_API_KEY=\"test-key\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
