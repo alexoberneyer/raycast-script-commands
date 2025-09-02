@@ -31,6 +31,9 @@ def main():
         )
         sys.exit(1)
 
+    # Get model from environment variable
+    model = os.environ.get("MODEL", "gpt-5-mini")
+
     # Get mode selection from Raycast argument (default to standard professional)
     choice = sys.argv[1] if len(sys.argv) > 1 else "1"
     if choice not in ["1", "2", "3"]:
@@ -83,7 +86,7 @@ Return only the polished text without any introduction or explanation:
 
         # Call OpenAI API using GPT-5 responses API
         response = client.responses.create(
-            model="gpt-5",
+            model=model,
             input=input_text,
             text={"verbosity": "low"},
         )
