@@ -5,7 +5,9 @@
       "Bash(uv:*)",
       "WebFetch(domain:github.com)",
       "Bash(chmod:*)",
-      "Bash(export OPENAI_API_KEY=\"test-key\")"
+      "Bash(export OPENAI_API_KEY=\"test-key\")",
+      "WebFetch(domain:developers.raycast.com)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []

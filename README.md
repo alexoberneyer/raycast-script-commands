@@ -1,14 +1,51 @@
-# Polish Clipboard Text
+# Raycast Script Commands
 
-A Raycast script command that uses OpenAI's API to polish and improve text from your clipboard.
+A collection of Python-based Raycast script commands for productivity and automation.
 
-## Features
+## Commands
 
-- Reads text from clipboard
-- Uses OpenAI's GPT-4o-mini model to improve grammar, spelling, and clarity
-- Maintains original meaning and tone
-- Copies polished text back to clipboard
-- Provides clear status feedback
+### Get Todos from Notes
+
+A Raycast script command that extracts todos from Markdown notes and consolidates them into a single file.
+
+#### Features
+
+- Scans all Markdown files (`.md`) in a specified directory
+- Extracts unchecked todo items (`* [ ]`)
+- Organizes todos by folder and filename
+- Saves consolidated todos to `open_todos.md`
+- Provides clear status feedback with emojis
+- Robust error handling for file access issues
+
+#### Usage
+
+1. **As Raycast Command:**
+   - Install the script in Raycast
+   - Search for "Get Todos from Notes"
+   - Provide the path to your notes folder when prompted
+
+2. **As Standalone Script:**
+   ```bash
+   python get-todos.py /path/to/your/notes
+   ```
+
+#### Output Format
+
+The script creates an `open_todos.md` file with todos organized like this:
+
+```markdown
+# Folder Name
+## filename.md
+* [ ] First todo item
+* [ ] Second todo item
+
+## another-file.md
+* [ ] Another todo
+
+# Another Folder
+## different-file.md
+* [ ] More todos
+```
 
 ## Setup
 
@@ -17,37 +54,29 @@ A Raycast script command that uses OpenAI's API to polish and improve text from 
    uv sync
    ```
 
-2. **Set up OpenAI API key:**
-   - Get your API key from [OpenAI Platform](https://platform.openai.com/account/api-keys)
-   - Create a `.env` file in the project root:
-     ```
-     OPENAI_API_KEY=your-api-key-here
-     ```
-   - Or set the environment variable:
-     ```bash
-     export OPENAI_API_KEY="your-api-key-here"
-     ```
-
-3. **Install in Raycast:**
-   - Copy the script to your Raycast script commands directory
+2. **Install in Raycast:**
+   - Copy `get-todos.py` to your Raycast script commands directory
    - Or use Raycast's "Create Script Command" feature and paste the script content
-
-## Usage
-
-1. Copy any text to your clipboard
-2. Run the command from Raycast (search for "Polish Clipboard Text")
-3. The polished text will replace the original content in your clipboard
+   - Ensure the script is executable: `chmod +x get-todos.py`
 
 ## Requirements
 
 - Python 3.10+
-- OpenAI API key
-- Internet connection
-- macOS (for clipboard functionality)
+- uv package manager
+- macOS (for Raycast integration)
 
-## Error Handling
+### Dependencies
 
-The script will show clear error messages for:
-- Missing OpenAI API key
-- Empty clipboard
-- API errors or network issues
+- **openai** (>=1.102.0) - OpenAI API client library
+- **pyperclip** (>=1.9.0) - Cross-platform clipboard utilities  
+- **python-dotenv** (>=1.1.1) - Environment variable management
+- **ruff** (>=0.12.10) - Fast Python linter and code formatter
+
+## Development
+
+Run linting and formatting:
+```bash
+uv run ruff check          # Check for issues
+uv run ruff check --fix    # Auto-fix issues
+uv run ruff format         # Format code
+```
