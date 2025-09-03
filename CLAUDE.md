@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Python project for Raycast script commands, managed using uv (an extremely fast Python package manager). The project contains Python-based Raycast script commands for productivity automation, specifically a todo extraction tool for Markdown notes.
+This is a Python project for Raycast script commands, managed using uv (an extremely fast Python package manager). The project contains Python-based Raycast script commands for productivity automation, including todo extraction from Markdown notes and clipboard text polishing using both OpenAI and local Ollama models.
 
 ## Project Structure
 
@@ -12,6 +12,8 @@ This is a Python project for Raycast script commands, managed using uv (an extre
 - `uv.lock` - Lock file for reproducible dependency installations
 - `README.md` - Project documentation with setup and usage instructions
 - `get-todos.py` - Raycast script command for extracting todos from Markdown notes
+- `polish-clipboard-text.py` - Raycast script for polishing clipboard text using OpenAI
+- `polish-clipboard-text-ollama.py` - Raycast script for polishing clipboard text using local Ollama models
 - `.venv/` - Virtual environment (auto-managed by uv)
 
 ## Development Commands
@@ -46,6 +48,7 @@ uv lock                    # Update lock file
 
 The project currently uses:
 - **openai** (>=1.102.0) - OpenAI API client library
+- **ollama** (>=0.5.3) - Ollama Python client for local models
 - **pyperclip** (>=1.9.0) - Cross-platform clipboard utilities
 - **python-dotenv** (>=1.1.1) - Environment variable management
 - **ruff** (>=0.12.10) - Fast Python linter and code formatter
@@ -68,3 +71,17 @@ The project currently uses:
 - **Output**: Creates `open_todos.md` with organized todos by folder/file
 - **Usage**: Can be run standalone or as Raycast command
 - **Features**: UTF-8 encoding, error handling, emoji status messages
+
+### polish-clipboard-text.py
+- **Purpose**: Polishes and improves clipboard text using OpenAI models
+- **Input**: Text from clipboard, polishing mode selection
+- **Output**: Improved text copied back to clipboard
+- **Usage**: Raycast command with dropdown selections for mode
+- **Features**: Three polishing modes, OpenAI API integration, emoji enhancement options
+
+### polish-clipboard-text-ollama.py
+- **Purpose**: Polishes and improves clipboard text using local Ollama models
+- **Input**: Text from clipboard, polishing mode and model selection
+- **Output**: Improved text copied back to clipboard
+- **Usage**: Raycast command with dropdown selections for mode and model
+- **Features**: Three polishing modes, local model support (Llama 3.1, Qwen 3, Phi 4, Gemma 3 12B), no API key required
