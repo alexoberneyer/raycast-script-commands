@@ -14,7 +14,7 @@ This is a Python project for Raycast script commands, managed using uv (an extre
 - `get-todos.py` - Raycast script command for extracting todos from Markdown notes
 - `polish-clipboard-text.py` - Raycast script for polishing clipboard text using OpenAI
 - `polish-clipboard-text-ollama.py` - Raycast script for polishing clipboard text using local Ollama models
-- `speak_clipboard_sesame.py` - Raycast script for converting clipboard text to speech using Sesame TTS
+- `speak-clipboard.py` - Raycast script for converting clipboard text to speech using macOS TTS
 - `.venv/` - Virtual environment (auto-managed by uv)
 
 ## Development Commands
@@ -53,11 +53,6 @@ The project currently uses:
 - **pyperclip** (>=1.9.0) - Cross-platform clipboard utilities
 - **python-dotenv** (>=1.1.1) - Environment variable management
 - **ruff** (>=0.12.10) - Fast Python linter and code formatter
-- **torch** (>=2.8.0) - PyTorch for ML model support
-- **transformers** (>=4.56.0) - Hugging Face transformers library
-- **soundfile** (>=0.13.1) - Audio file I/O operations
-- **numpy** (>=2.2.6) - Numerical computing support
-- **huggingface-hub** - Authentication for gated models
 
 ## Development Notes
 
@@ -92,15 +87,13 @@ The project currently uses:
 - **Usage**: Raycast command with dropdown selections for mode and model
 - **Features**: Three polishing modes, local model support (Llama 3.1, Qwen 3, Phi 4, Gemma 3 12B), no API key required
 
-### speak_clipboard_sesame.py
-- **Purpose**: Converts clipboard text to natural speech using Sesame TTS model with macOS fallback
+### speak-clipboard.py
+- **Purpose**: Converts clipboard text to speech using macOS built-in TTS
 - **Input**: Text from clipboard (automatically retrieved)
 - **Output**: Audio playback of synthesized speech
 - **Usage**: Raycast command with compact mode for user feedback
 - **Features**: 
-  - Primary: Sesame CSM-1B model with Hugging Face authentication
-  - Fallback: macOS built-in TTS (`say` command) when Sesame unavailable
-  - MPS acceleration on Apple Silicon for neural TTS
-  - Graceful error handling and automatic fallbacks
-  - Works immediately with built-in TTS, upgrades when authenticated
-- **Authentication**: Requires HUGGINGFACE_HUB_TOKEN for Sesame TTS access
+  - Uses macOS built-in TTS (`say` command)
+  - Simple and reliable text-to-speech conversion
+  - Graceful error handling
+  - Preview of text content before speech generation

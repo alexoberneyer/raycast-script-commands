@@ -15,11 +15,11 @@ Two variants of a text polishing script that improve and enhance text from your 
 1. **polish-clipboard-text.py** - Uses OpenAI models (requires API key)
 2. **polish-clipboard-text-ollama.py** - Uses local Ollama models (no API key needed)
 
-### Speak Clipboard (Sesame TTS)
+### Speak Clipboard
 
-A text-to-speech script that converts clipboard text to natural-sounding speech using the Sesame TTS model:
+A text-to-speech script that converts clipboard text to speech using macOS built-in TTS:
 
-**speak-clipboard-sesame.py** - Uses Hugging Face Transformers with Sesame CSM-1B model
+**speak-clipboard.py** - Uses macOS `say` command for text-to-speech
 
 #### Polish Text Features
 
@@ -32,14 +32,10 @@ A text-to-speech script that converts clipboard text to natural-sounding speech 
 
 #### Speak Clipboard Features
 
-- **Primary**: Sesame CSM-1B model for high-quality neural TTS
-- **Fallback**: macOS built-in TTS (`say` command) when Sesame unavailable
-- Supports Metal Performance Shaders (MPS) acceleration on Apple Silicon
-- Automatic authentication handling for gated Hugging Face models
-- Comprehensive error handling with graceful fallbacks
+- Uses macOS built-in TTS (`say` command)
+- Simple and reliable text-to-speech conversion
 - Preview of text content before speech generation
-- Temporary file cleanup after playback
-- Works immediately with built-in TTS, upgrades to Sesame when authenticated
+- Comprehensive error handling
 
 #### Get Todos Features
 
@@ -87,14 +83,13 @@ The script creates an `open_todos.md` file with todos organized like this:
    uv sync
    ```
 
-2. **For Sesame TTS (optional):**
-   - Request access at: https://huggingface.co/sesame/csm-1b
-   - Get your Hugging Face token from: https://huggingface.co/settings/tokens
+2. **For OpenAI text polishing (optional):**
+   - Get your OpenAI API key from: https://platform.openai.com/api-keys
    - Set environment variable:
      ```bash
-     export HUGGINGFACE_HUB_TOKEN="your_token_here"
+     export OPENAI_API_KEY="your_api_key_here"
      ```
-   - Or add to your `.env` file: `HUGGINGFACE_HUB_TOKEN=your_token_here`
+   - Or add to your `.env` file: `OPENAI_API_KEY=your_api_key_here`
 
 3. **Install in Raycast:**
    - Copy scripts to your Raycast script commands directory
@@ -114,11 +109,6 @@ The script creates an `open_todos.md` file with todos organized like this:
 - **pyperclip** (>=1.9.0) - Cross-platform clipboard utilities  
 - **python-dotenv** (>=1.1.1) - Environment variable management
 - **ruff** (>=0.12.10) - Fast Python linter and code formatter
-- **torch** (>=2.8.0) - PyTorch for ML model support
-- **transformers** (>=4.56.0) - Hugging Face transformers library
-- **soundfile** (>=0.13.1) - Audio file I/O operations
-- **numpy** (>=2.2.6) - Numerical computing support
-- **huggingface-hub** - Authentication for gated models
 
 ## Development
 
