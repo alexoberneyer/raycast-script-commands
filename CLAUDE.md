@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Python project for Raycast script commands, managed using uv (an extremely fast Python package manager). The project contains Python-based Raycast script commands for productivity automation, including todo extraction from Markdown notes, clipboard text polishing using both OpenAI and local Ollama models, and text-to-speech conversion using Sesame TTS.
+This is a Python project for Raycast script commands, managed using uv (an extremely fast Python package manager). The project contains Python-based Raycast script commands for productivity automation, including todo extraction from Markdown notes, clipboard text polishing using both OpenAI and local Ollama models, and text-to-speech conversion using macOS TTS.
 
 ## Project Structure
 
@@ -15,6 +15,7 @@ This is a Python project for Raycast script commands, managed using uv (an extre
 - `polish-clipboard-text.py` - Raycast script for polishing clipboard text using OpenAI
 - `polish-clipboard-text-ollama.py` - Raycast script for polishing clipboard text using local Ollama models
 - `speak-clipboard.py` - Raycast script for converting clipboard text to speech using macOS TTS
+- `save-clipboard-to-audio.py` - Raycast script for saving clipboard text as MP3 audio files
 - `.venv/` - Virtual environment (auto-managed by uv)
 
 ## Development Commands
@@ -97,3 +98,16 @@ The project currently uses:
   - Simple and reliable text-to-speech conversion
   - Graceful error handling
   - Preview of text content before speech generation
+
+### save-clipboard-to-audio.py
+- **Purpose**: Saves clipboard text as MP3 audio files using macOS TTS
+- **Input**: Text from clipboard (automatically retrieved)
+- **Output**: MP3 audio file saved to Desktop with timestamped filename
+- **Usage**: Raycast command with compact mode for user feedback
+- **Features**:
+  - Uses macOS built-in TTS (`say` command) with `ffmpeg` conversion
+  - Saves compressed MP3 files (128k bitrate) to Desktop
+  - Timestamped filenames (e.g., `clipboard_audio_20250904_163755.mp3`)
+  - Automatic cleanup of temporary AIFF files
+  - Error handling and clear status messages
+  - Requires `ffmpeg` for MP3 conversion

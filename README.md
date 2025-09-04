@@ -17,9 +17,10 @@ Two variants of a text polishing script that improve and enhance text from your 
 
 ### Speak Clipboard
 
-A text-to-speech script that converts clipboard text to speech using macOS built-in TTS:
+Text-to-speech scripts using macOS built-in TTS:
 
-**speak-clipboard.py** - Uses macOS `say` command for text-to-speech
+1. **speak-clipboard.py** - Converts clipboard text to speech using macOS `say` command
+2. **save-clipboard-to-audio.py** - Saves clipboard text as MP3 audio file
 
 #### Polish Text Features
 
@@ -32,10 +33,18 @@ A text-to-speech script that converts clipboard text to speech using macOS built
 
 #### Speak Clipboard Features
 
+**speak-clipboard.py:**
 - Uses macOS built-in TTS (`say` command)
 - Simple and reliable text-to-speech conversion
 - Preview of text content before speech generation
 - Comprehensive error handling
+
+**save-clipboard-to-audio.py:**
+- Saves clipboard text as MP3 audio files
+- Uses macOS `say` command with `ffmpeg` conversion
+- Timestamped filenames saved to Desktop
+- Automatic cleanup of temporary files
+- 128k bitrate MP3 compression
 
 #### Get Todos Features
 
@@ -101,6 +110,7 @@ The script creates an `open_todos.md` file with todos organized like this:
 - Python 3.10+
 - uv package manager
 - macOS (for Raycast integration)
+- ffmpeg (for MP3 audio conversion)
 
 ### Dependencies
 
