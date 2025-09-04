@@ -5,9 +5,13 @@ description = "Python-based Raycast script commands for productivity and automat
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "numpy>=2.2.6",
     "ollama>=0.5.3",
     "openai>=1.102.0",
     "pyperclip>=1.9.0",
     "python-dotenv>=1.1.1",
     "ruff>=0.12.10",
+    "soundfile>=0.13.1",
+    "torch>=2.8.0",
+    "transformers>=4.56.0",
 ]

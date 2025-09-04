@@ -15,7 +15,13 @@ Two variants of a text polishing script that improve and enhance text from your 
 1. **polish-clipboard-text.py** - Uses OpenAI models (requires API key)
 2. **polish-clipboard-text-ollama.py** - Uses local Ollama models (no API key needed)
 
-#### Features
+### Speak Clipboard (Sesame TTS)
+
+A text-to-speech script that converts clipboard text to natural-sounding speech using the Sesame TTS model:
+
+**speak-clipboard-sesame.py** - Uses Hugging Face Transformers with Sesame CSM-1B model
+
+#### Polish Text Features
 
 - Three polishing modes: Standard Professional, Microsoft Teams Emojis, Regular Emojis
 - Maintains original language, meaning, and tone
@@ -23,6 +29,15 @@ Two variants of a text polishing script that improve and enhance text from your 
 - Adds appropriate emojis based on selected mode
 - Copies polished text back to clipboard
 - Ollama version supports local models: Llama 3.1, Qwen 3, Phi 4, Gemma 3 12B
+
+#### Speak Clipboard Features
+
+- Converts clipboard text to natural speech using Sesame CSM-1B model
+- Supports Metal Performance Shaders (MPS) acceleration on Apple Silicon
+- Automatically plays generated audio using macOS built-in audio player
+- Comprehensive error handling with clear status messages
+- Preview of text content before speech generation
+- Temporary file cleanup after playback
 
 #### Get Todos Features
 
@@ -88,6 +103,10 @@ The script creates an `open_todos.md` file with todos organized like this:
 - **pyperclip** (>=1.9.0) - Cross-platform clipboard utilities  
 - **python-dotenv** (>=1.1.1) - Environment variable management
 - **ruff** (>=0.12.10) - Fast Python linter and code formatter
+- **torch** (>=2.8.0) - PyTorch for ML model support
+- **transformers** (>=4.56.0) - Hugging Face transformers library
+- **soundfile** (>=0.13.1) - Audio file I/O operations
+- **numpy** (>=2.2.6) - Numerical computing support
 
 ## Development
 

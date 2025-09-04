@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Python project for Raycast script commands, managed using uv (an extremely fast Python package manager). The project contains Python-based Raycast script commands for productivity automation, including todo extraction from Markdown notes and clipboard text polishing using both OpenAI and local Ollama models.
+This is a Python project for Raycast script commands, managed using uv (an extremely fast Python package manager). The project contains Python-based Raycast script commands for productivity automation, including todo extraction from Markdown notes, clipboard text polishing using both OpenAI and local Ollama models, and text-to-speech conversion using Sesame TTS.
 
 ## Project Structure
 
@@ -14,6 +14,7 @@ This is a Python project for Raycast script commands, managed using uv (an extre
 - `get-todos.py` - Raycast script command for extracting todos from Markdown notes
 - `polish-clipboard-text.py` - Raycast script for polishing clipboard text using OpenAI
 - `polish-clipboard-text-ollama.py` - Raycast script for polishing clipboard text using local Ollama models
+- `speak_clipboard_sesame.py` - Raycast script for converting clipboard text to speech using Sesame TTS
 - `.venv/` - Virtual environment (auto-managed by uv)
 
 ## Development Commands
@@ -52,6 +53,10 @@ The project currently uses:
 - **pyperclip** (>=1.9.0) - Cross-platform clipboard utilities
 - **python-dotenv** (>=1.1.1) - Environment variable management
 - **ruff** (>=0.12.10) - Fast Python linter and code formatter
+- **torch** (>=2.8.0) - PyTorch for ML model support
+- **transformers** (>=4.56.0) - Hugging Face transformers library
+- **soundfile** (>=0.13.1) - Audio file I/O operations
+- **numpy** (>=2.2.6) - Numerical computing support
 
 ## Development Notes
 
@@ -85,3 +90,10 @@ The project currently uses:
 - **Output**: Improved text copied back to clipboard
 - **Usage**: Raycast command with dropdown selections for mode and model
 - **Features**: Three polishing modes, local model support (Llama 3.1, Qwen 3, Phi 4, Gemma 3 12B), no API key required
+
+### speak_clipboard_sesame.py
+- **Purpose**: Converts clipboard text to natural speech using Sesame TTS model
+- **Input**: Text from clipboard (automatically retrieved)
+- **Output**: Audio playback of synthesized speech
+- **Usage**: Raycast command with silent execution
+- **Features**: Sesame CSM-1B model, MPS acceleration on Apple Silicon, automatic audio playback, comprehensive error handling, text preview
