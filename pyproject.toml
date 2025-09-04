@@ -5,6 +5,7 @@ description = "Python-based Raycast script commands for productivity and automat
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "huggingface-hub>=0.34.4",
     "numpy>=2.2.6",
     "ollama>=0.5.3",
     "openai>=1.102.0",

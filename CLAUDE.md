@@ -57,6 +57,7 @@ The project currently uses:
 - **transformers** (>=4.56.0) - Hugging Face transformers library
 - **soundfile** (>=0.13.1) - Audio file I/O operations
 - **numpy** (>=2.2.6) - Numerical computing support
+- **huggingface-hub** - Authentication for gated models
 
 ## Development Notes
 
@@ -92,8 +93,14 @@ The project currently uses:
 - **Features**: Three polishing modes, local model support (Llama 3.1, Qwen 3, Phi 4, Gemma 3 12B), no API key required
 
 ### speak_clipboard_sesame.py
-- **Purpose**: Converts clipboard text to natural speech using Sesame TTS model
+- **Purpose**: Converts clipboard text to natural speech using Sesame TTS model with macOS fallback
 - **Input**: Text from clipboard (automatically retrieved)
 - **Output**: Audio playback of synthesized speech
-- **Usage**: Raycast command with silent execution
-- **Features**: Sesame CSM-1B model, MPS acceleration on Apple Silicon, automatic audio playback, comprehensive error handling, text preview
+- **Usage**: Raycast command with compact mode for user feedback
+- **Features**: 
+  - Primary: Sesame CSM-1B model with Hugging Face authentication
+  - Fallback: macOS built-in TTS (`say` command) when Sesame unavailable
+  - MPS acceleration on Apple Silicon for neural TTS
+  - Graceful error handling and automatic fallbacks
+  - Works immediately with built-in TTS, upgrades when authenticated
+- **Authentication**: Requires HUGGINGFACE_HUB_TOKEN for Sesame TTS access

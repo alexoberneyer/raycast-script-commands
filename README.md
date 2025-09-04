@@ -32,12 +32,14 @@ A text-to-speech script that converts clipboard text to natural-sounding speech 
 
 #### Speak Clipboard Features
 
-- Converts clipboard text to natural speech using Sesame CSM-1B model
+- **Primary**: Sesame CSM-1B model for high-quality neural TTS
+- **Fallback**: macOS built-in TTS (`say` command) when Sesame unavailable
 - Supports Metal Performance Shaders (MPS) acceleration on Apple Silicon
-- Automatically plays generated audio using macOS built-in audio player
-- Comprehensive error handling with clear status messages
+- Automatic authentication handling for gated Hugging Face models
+- Comprehensive error handling with graceful fallbacks
 - Preview of text content before speech generation
 - Temporary file cleanup after playback
+- Works immediately with built-in TTS, upgrades to Sesame when authenticated
 
 #### Get Todos Features
 
@@ -85,7 +87,16 @@ The script creates an `open_todos.md` file with todos organized like this:
    uv sync
    ```
 
-2. **Install in Raycast:**
+2. **For Sesame TTS (optional):**
+   - Request access at: https://huggingface.co/sesame/csm-1b
+   - Get your Hugging Face token from: https://huggingface.co/settings/tokens
+   - Set environment variable:
+     ```bash
+     export HUGGINGFACE_HUB_TOKEN="your_token_here"
+     ```
+   - Or add to your `.env` file: `HUGGINGFACE_HUB_TOKEN=your_token_here`
+
+3. **Install in Raycast:**
    - Copy scripts to your Raycast script commands directory
    - Or use Raycast's "Create Script Command" feature and paste the script content
    - Ensure scripts are executable: `chmod +x *.py`
@@ -107,6 +118,7 @@ The script creates an `open_todos.md` file with todos organized like this:
 - **transformers** (>=4.56.0) - Hugging Face transformers library
 - **soundfile** (>=0.13.1) - Audio file I/O operations
 - **numpy** (>=2.2.6) - Numerical computing support
+- **huggingface-hub** - Authentication for gated models
 
 ## Development
 

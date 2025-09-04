@@ -11,7 +11,6 @@
 # @raycast.needsConfirmation false
 
 import subprocess
-import os
 import sys
 import tempfile
 
@@ -30,29 +29,38 @@ def get_clipboard_text() -> str:
 
 
 def speak(text: str):
-    """Convert text to speech using Sesame TTS model and play audio."""
+    """Convert text to speech using macOS built-in TTS as fallback."""
     try:
         import torch
         from transformers import AutoProcessor, AutoModelForTextToWaveform
         import soundfile as sf
         import numpy as np
+        import os
     except ImportError as e:
-        print(f"❌ Missing required dependencies: {e}")
-        print("💡 Install with: pip install torch transformers soundfile numpy")
-        sys.exit(1)
+        print(f"⚠️ ML dependencies not available: {e}")
+        print("🔄 Using macOS built-in TTS instead...")
+        use_builtin_tts(text)
+        return
 
-    print("🔄 Loading TTS model...")
-
+    print("🔄 Loading Sesame TTS model...")
+    
+    # Check for HF token
+    hf_token = os.environ.get("HUGGINGFACE_HUB_TOKEN") or os.environ.get("HF_TOKEN")
+    
     try:
         model_id = "sesame/csm-1b"
         device = "mps" if torch.backends.mps.is_available() else "cpu"
-
-        processor = AutoProcessor.from_pretrained(model_id)
-        model = AutoModelForTextToWaveform.from_pretrained(model_id)
+        
+        # Try to load with authentication if token is available
+        auth_kwargs = {"token": hf_token} if hf_token else {}
+        
+        processor = AutoProcessor.from_pretrained(model_id, **auth_kwargs)
+        model = AutoModelForTextToWaveform.from_pretrained(model_id, **auth_kwargs)
         model = model.to(device)
-
+        
+        print("✅ Sesame TTS model loaded successfully!")
+        
         print("🎙️ Generating speech...")
-
         inputs = processor(text=text, return_tensors="pt")
         for k, v in inputs.items():
             if hasattr(v, "to"):
@@ -70,7 +78,6 @@ def speak(text: str):
             path = tmp.name
 
         print("🔊 Playing audio...")
-
         try:
             subprocess.run(["afplay", path], check=True, capture_output=True)
             print("✅ Audio playback completed!")
@@ -81,9 +88,32 @@ def speak(text: str):
                 os.remove(path)
             except Exception as e:
                 print(f"⚠️ Could not clean up temporary file: {e}")
-
+                
     except Exception as e:
-        print(f"❌ TTS generation failed: {e}")
+        if "gated repo" in str(e).lower() or "restricted" in str(e).lower():
+            print("🔒 Sesame TTS requires authentication.")
+            print("💡 Get access at: https://huggingface.co/sesame/csm-1b")
+            print("💡 Then set HUGGINGFACE_HUB_TOKEN environment variable")
+            print("🔄 Using macOS built-in TTS instead...")
+            use_builtin_tts(text)
+        else:
+            print(f"⚠️ Sesame TTS failed: {e}")
+            print("🔄 Using macOS built-in TTS instead...")
+            use_builtin_tts(text)
+
+
+def use_builtin_tts(text: str):
+    """Fallback to macOS built-in text-to-speech."""
+    try:
+        print("🗣️ Using macOS built-in TTS...")
+        # Use macOS say command for TTS
+        subprocess.run(["say", text], check=True, capture_output=True)
+        print("✅ Speech completed!")
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Built-in TTS failed: {e}")
+        sys.exit(1)
+    except Exception as e:
+        print(f"❌ TTS error: {e}")
         sys.exit(1)
 
 

@@ -957,6 +957,7 @@ name = "raycast-script-commands"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "huggingface-hub" },
     { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "numpy", version = "2.3.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
     { name = "ollama" },
@@ -971,6 +972,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "huggingface-hub", specifier = ">=0.34.4" },
     { name = "numpy", specifier = ">=2.2.6" },
     { name = "ollama", specifier = ">=0.5.3" },
     { name = "openai", specifier = ">=1.102.0" },
