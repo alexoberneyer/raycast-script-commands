@@ -19,6 +19,7 @@ from datetime import datetime
 from jira import JIRA
 from openai import OpenAI
 from dotenv import load_dotenv
+import pyperclip
 
 
 def format_datetime(dt_str):
@@ -78,23 +79,15 @@ Comments ({len(ticket_info['comments'])} total):
         for comment in ticket_info['comments']:
             content += f"\n{comment['author']} ({comment['created']}): {comment['body']}\n"
         
-        response = openai_client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {
-                    "role": "system",
-                    "content": "You are a helpful assistant that summarizes JIRA tickets. Provide a concise, structured summary that highlights the key points, current status, and main discussion topics from the comments."
-                },
-                {
-                    "role": "user",
-                    "content": f"Please summarize this JIRA ticket and its comments:\n\n{content}"
-                }
-            ],
-            max_tokens=500,
-            temperature=0.3
+        input_text = f"Please summarize this JIRA ticket and its comments. Provide a concise, structured summary that highlights the key points, current status, and main discussion topics from the comments:\n\n{content}"
+        
+        response = openai_client.responses.create(
+            model=os.environ.get("MODEL", "gpt-5-mini"),
+            input=input_text,
+            text={"verbosity": "low"},
         )
         
-        return response.choices[0].message.content
+        return response.output_text.strip()
         
     except Exception as e:
         return f"❌ Failed to generate summary: {str(e)}"
@@ -142,6 +135,50 @@ def main():
         
         ticket_info = result
         
+        # Prepare formatted output for clipboard
+        output_text = f"🎫 {ticket_info['key']}: {ticket_info['title']}\n"
+        output_text += f"📊 Status: {ticket_info['status']}\n"
+        output_text += f"👤 Assignee: {ticket_info['assignee']}\n"
+        output_text += f"📝 Reporter: {ticket_info['reporter']}\n"
+        output_text += f"📅 Created: {ticket_info['created']}\n"
+        output_text += f"🔄 Updated: {ticket_info['updated']}\n\n"
+        
+        output_text += "📋 Description:\n"
+        output_text += f"{ticket_info['description']}\n\n"
+        
+        # Add comments to output
+        if ticket_info['comments']:
+            output_text += f"💬 Comments ({len(ticket_info['comments'])}):\n"
+            output_text += "-" * 50 + "\n"
+            
+            for comment in ticket_info['comments']:
+                output_text += f"\n👤 {comment['author']} - {comment['created']}\n"
+                output_text += f"{comment['body']}\n"
+                output_text += "-" * 50 + "\n"
+        else:
+            output_text += "💬 Comments: No comments found\n"
+        
+        # Generate AI summary if requested
+        summary_text = ""
+        if include_summary:
+            openai_api_key = os.environ.get("OPENAI_API_KEY")
+            if not openai_api_key:
+                summary_text = "\n❌ OpenAI API key not found. Cannot generate summary.\n💡 Set OPENAI_API_KEY environment variable to enable AI summaries."
+            else:
+                print("🤖 Generating AI summary...")
+                
+                openai_client = OpenAI(api_key=openai_api_key)
+                summary = generate_summary(openai_client, ticket_info)
+                
+                summary_text = f"\n🤖 AI Summary:\n{summary}"
+        
+        # Add summary to output if available
+        if summary_text:
+            output_text += summary_text
+        
+        # Copy formatted output to clipboard
+        pyperclip.copy(output_text)
+        
         # Display ticket information
         print(f"\n🎫 **{ticket_info['key']}: {ticket_info['title']}**")
         print(f"📊 Status: {ticket_info['status']}")
@@ -165,22 +202,16 @@ def main():
         else:
             print("\n💬 **Comments:** No comments found")
         
-        # Generate AI summary if requested
-        if include_summary:
-            openai_api_key = os.environ.get("OPENAI_API_KEY")
-            if not openai_api_key:
-                print("\n❌ OpenAI API key not found. Cannot generate summary.")
-                print("💡 Set OPENAI_API_KEY environment variable to enable AI summaries.")
+        # Display AI summary if generated
+        if summary_text:
+            if "❌" in summary_text:
+                print(summary_text)
             else:
                 print("\n🤖 **AI Summary:**")
-                print("Generating summary...")
-                
-                openai_client = OpenAI(api_key=openai_api_key)
-                summary = generate_summary(openai_client, ticket_info)
-                
-                print(summary)
+                print(summary.strip())
         
         print(f"\n✅ Successfully retrieved information for {ticket_id}")
+        print("📋 Full ticket information copied to clipboard!")
         
     except Exception as e:
         print(f"❌ Error: {str(e)}")
