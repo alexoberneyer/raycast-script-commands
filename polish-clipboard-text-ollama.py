@@ -75,17 +75,11 @@ Return only the polished text without any introduction or explanation:
 
         # Call Ollama API
         response = ollama.chat(
-            model=model,
-            messages=[
-                {
-                    'role': 'user',
-                    'content': prompt
-                }
-            ]
+            model=model, messages=[{"role": "user", "content": prompt}]
         )
 
         # Extract polished text
-        polished_text = response['message']['content'].strip()
+        polished_text = response["message"]["content"].strip()
 
         # Copy polished text back to clipboard
         pyperclip.copy(polished_text)
