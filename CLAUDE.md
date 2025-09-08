@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Python project for Raycast script commands, managed using uv (an extremely fast Python package manager). The project contains Python-based Raycast script commands for productivity automation, including todo extraction from Markdown notes, clipboard text polishing using both OpenAI and local Ollama models, text-to-speech conversion using macOS TTS, and JIRA ticket information retrieval.
+This is a Python project for Raycast script commands, managed using uv (an extremely fast Python package manager). The project contains Python-based Raycast script commands for productivity automation, including todo extraction from Markdown notes, clipboard text polishing using both OpenAI and local Ollama models, text-to-speech conversion using macOS TTS and OpenAI TTS API, and JIRA ticket information retrieval.
 
 ## Project Structure
 
@@ -14,8 +14,8 @@ This is a Python project for Raycast script commands, managed using uv (an extre
 - `get-todos.py` - Raycast script command for extracting todos from Markdown notes
 - `polish-clipboard-text.py` - Raycast script for polishing clipboard text using OpenAI
 - `polish-clipboard-text-ollama.py` - Raycast script for polishing clipboard text using local Ollama models
-- `speak-clipboard.py` - Raycast script for converting clipboard text to speech using macOS TTS
-- `save-clipboard-to-audio.py` - Raycast script for saving clipboard text as MP3 audio files
+- `speak-clipboard.py` - Raycast script for converting clipboard text to speech using macOS TTS or OpenAI TTS API
+- `save-clipboard-to-audio.py` - Raycast script for saving clipboard text as MP3 audio files using macOS TTS or OpenAI TTS API
 - `jira-ticket-info.py` - Raycast script for fetching JIRA ticket information and comments
 - `.venv/` - Virtual environment (auto-managed by uv)
 
@@ -91,28 +91,32 @@ The project currently uses:
 - **Features**: Three polishing modes, local model support (Llama 3.1, Qwen 3, Phi 4, Gemma 3 12B), no API key required
 
 ### speak-clipboard.py
-- **Purpose**: Converts clipboard text to speech using macOS built-in TTS
-- **Input**: Text from clipboard (automatically retrieved)
+- **Purpose**: Converts clipboard text to speech using macOS built-in TTS or OpenAI TTS API
+- **Input**: Text from clipboard (automatically retrieved), TTS engine selection, voice selection (for OpenAI)
 - **Output**: Audio playback of synthesized speech
-- **Usage**: Raycast command with compact mode for user feedback
+- **Usage**: Raycast command with dropdown selections for engine and voice
 - **Features**: 
-  - Uses macOS built-in TTS (`say` command)
+  - **Dual TTS Support**: macOS built-in TTS (`say` command) or OpenAI TTS API
+  - **Voice Selection**: 10 OpenAI voices (coral, alloy, echo, fable, nova, onyx, shimmer, ash, ballad, sage)
+  - Streaming audio playback for OpenAI TTS using WAV format
   - Simple and reliable text-to-speech conversion
-  - Graceful error handling
+  - Graceful error handling with API key validation
   - Preview of text content before speech generation
 
 ### save-clipboard-to-audio.py
-- **Purpose**: Saves clipboard text as MP3 audio files using macOS TTS
-- **Input**: Text from clipboard (automatically retrieved)
+- **Purpose**: Saves clipboard text as MP3 audio files using macOS TTS or OpenAI TTS API
+- **Input**: Text from clipboard (automatically retrieved), TTS engine selection, voice selection (for OpenAI)
 - **Output**: MP3 audio file saved to Desktop with timestamped filename
-- **Usage**: Raycast command with compact mode for user feedback
+- **Usage**: Raycast command with dropdown selections for engine and voice
 - **Features**:
-  - Uses macOS built-in TTS (`say` command) with `ffmpeg` conversion
-  - Saves compressed MP3 files (128k bitrate) to Desktop
+  - **Dual TTS Support**: macOS built-in TTS (`say` command) or OpenAI TTS API
+  - **Voice Selection**: 10 OpenAI voices (coral, alloy, echo, fable, nova, onyx, shimmer, ash, ballad, sage)
+  - **Direct MP3 Output**: OpenAI TTS saves directly to MP3, macOS TTS converts via `ffmpeg`
+  - Saves compressed MP3 files (128k bitrate for macOS TTS) to Desktop
   - Timestamped filenames (e.g., `clipboard_audio_20250904_163755.mp3`)
-  - Automatic cleanup of temporary AIFF files
-  - Error handling and clear status messages
-  - Requires `ffmpeg` for MP3 conversion
+  - Automatic cleanup of temporary AIFF files (macOS TTS only)
+  - Error handling and clear status messages with API key validation
+  - Requires `ffmpeg` for macOS TTS MP3 conversion
 
 ### jira-ticket-info.py
 - **Purpose**: Fetches comprehensive JIRA ticket information including title, description, and all comments

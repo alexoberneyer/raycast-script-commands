@@ -21,10 +21,10 @@ A Raycast script command that fetches comprehensive information from JIRA ticket
 
 ### Speak Clipboard
 
-Text-to-speech scripts using macOS built-in TTS:
+Text-to-speech scripts with both macOS built-in TTS and OpenAI TTS support:
 
-1. **speak-clipboard.py** - Converts clipboard text to speech using macOS `say` command
-2. **save-clipboard-to-audio.py** - Saves clipboard text as MP3 audio file
+1. **speak-clipboard.py** - Converts clipboard text to speech using macOS `say` command or OpenAI TTS API
+2. **save-clipboard-to-audio.py** - Saves clipboard text as MP3 audio file using macOS TTS or OpenAI TTS API
 
 #### Polish Text Features
 
@@ -38,17 +38,19 @@ Text-to-speech scripts using macOS built-in TTS:
 #### Speak Clipboard Features
 
 **speak-clipboard.py:**
-- Uses macOS built-in TTS (`say` command)
-- Simple and reliable text-to-speech conversion
+- **Dual TTS Support**: Choose between macOS built-in TTS (`say` command) or OpenAI TTS API
+- **Voice Selection**: 10 OpenAI voices available (coral, alloy, echo, fable, nova, onyx, shimmer, ash, ballad, sage)
 - Preview of text content before speech generation
+- Streaming audio playback for OpenAI TTS
 - Comprehensive error handling
 
 **save-clipboard-to-audio.py:**
-- Saves clipboard text as MP3 audio files
-- Uses macOS `say` command with `ffmpeg` conversion
+- **Dual TTS Support**: Save audio files using macOS TTS or OpenAI TTS API
+- **Direct MP3 Output**: OpenAI TTS saves directly to MP3, macOS TTS converts via `ffmpeg`
+- **Voice Selection**: Same 10 OpenAI voices for file generation
 - Timestamped filenames saved to Desktop
 - Automatic cleanup of temporary files
-- 128k bitrate MP3 compression
+- 128k bitrate MP3 compression for macOS TTS
 
 #### JIRA Ticket Features
 
@@ -106,7 +108,7 @@ The script creates an `open_todos.md` file with todos organized like this:
    uv sync
    ```
 
-2. **For OpenAI integrations (text polishing and JIRA summaries):**
+2. **For OpenAI integrations (text polishing, JIRA summaries, and TTS):**
    - Get your OpenAI API key from: https://platform.openai.com/api-keys
    - Set environment variable:
      ```bash
