@@ -15,6 +15,10 @@ Two variants of a text polishing script that improve and enhance text from your 
 1. **polish-clipboard-text.py** - Uses OpenAI models (requires API key)
 2. **polish-clipboard-text-ollama.py** - Uses local Ollama models (no API key needed)
 
+### JIRA Ticket Information
+
+A Raycast script command that fetches comprehensive information from JIRA tickets.
+
 ### Speak Clipboard
 
 Text-to-speech scripts using macOS built-in TTS:
@@ -45,6 +49,16 @@ Text-to-speech scripts using macOS built-in TTS:
 - Timestamped filenames saved to Desktop
 - Automatic cleanup of temporary files
 - 128k bitrate MP3 compression
+
+#### JIRA Ticket Features
+
+**jira-ticket-info.py:**
+- Fetches ticket title, description, status, and metadata
+- Retrieves all comments sorted chronologically (oldest first)
+- Shows comment author's first name and timestamp
+- Optional AI-powered ticket and comment summarization
+- Supports JIRA Cloud and Server instances
+- Clear status feedback with emojis
 
 #### Get Todos Features
 
@@ -92,7 +106,7 @@ The script creates an `open_todos.md` file with todos organized like this:
    uv sync
    ```
 
-2. **For OpenAI text polishing (optional):**
+2. **For OpenAI integrations (text polishing and JIRA summaries):**
    - Get your OpenAI API key from: https://platform.openai.com/api-keys
    - Set environment variable:
      ```bash
@@ -100,7 +114,16 @@ The script creates an `open_todos.md` file with todos organized like this:
      ```
    - Or add to your `.env` file: `OPENAI_API_KEY=your_api_key_here`
 
-3. **Install in Raycast:**
+3. **For JIRA integration (optional):**
+   - Get your JIRA API token from your Atlassian account settings
+   - Add to your `.env` file:
+     ```
+     JIRA_SERVER=https://your-domain.atlassian.net
+     JIRA_EMAIL=your-email@company.com
+     JIRA_API_TOKEN=your_api_token_here
+     ```
+
+4. **Install in Raycast:**
    - Copy scripts to your Raycast script commands directory
    - Or use Raycast's "Create Script Command" feature and paste the script content
    - Ensure scripts are executable: `chmod +x *.py`
@@ -114,6 +137,7 @@ The script creates an `open_todos.md` file with todos organized like this:
 
 ### Dependencies
 
+- **jira** (>=3.10.5) - JIRA Python SDK for API integration
 - **openai** (>=1.102.0) - OpenAI API client library
 - **ollama** (>=0.5.3) - Ollama Python client for local models
 - **pyperclip** (>=1.9.0) - Cross-platform clipboard utilities  

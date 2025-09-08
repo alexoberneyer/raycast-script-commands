@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Python project for Raycast script commands, managed using uv (an extremely fast Python package manager). The project contains Python-based Raycast script commands for productivity automation, including todo extraction from Markdown notes, clipboard text polishing using both OpenAI and local Ollama models, and text-to-speech conversion using macOS TTS.
+This is a Python project for Raycast script commands, managed using uv (an extremely fast Python package manager). The project contains Python-based Raycast script commands for productivity automation, including todo extraction from Markdown notes, clipboard text polishing using both OpenAI and local Ollama models, text-to-speech conversion using macOS TTS, and JIRA ticket information retrieval.
 
 ## Project Structure
 
@@ -16,6 +16,7 @@ This is a Python project for Raycast script commands, managed using uv (an extre
 - `polish-clipboard-text-ollama.py` - Raycast script for polishing clipboard text using local Ollama models
 - `speak-clipboard.py` - Raycast script for converting clipboard text to speech using macOS TTS
 - `save-clipboard-to-audio.py` - Raycast script for saving clipboard text as MP3 audio files
+- `jira-ticket-info.py` - Raycast script for fetching JIRA ticket information and comments
 - `.venv/` - Virtual environment (auto-managed by uv)
 
 ## Development Commands
@@ -49,6 +50,7 @@ uv lock                    # Update lock file
 ## Dependencies
 
 The project currently uses:
+- **jira** (>=3.10.5) - JIRA Python SDK for API integration
 - **openai** (>=1.102.0) - OpenAI API client library
 - **ollama** (>=0.5.3) - Ollama Python client for local models
 - **pyperclip** (>=1.9.0) - Cross-platform clipboard utilities
@@ -111,3 +113,17 @@ The project currently uses:
   - Automatic cleanup of temporary AIFF files
   - Error handling and clear status messages
   - Requires `ffmpeg` for MP3 conversion
+
+### jira-ticket-info.py
+- **Purpose**: Fetches comprehensive JIRA ticket information including title, description, and all comments
+- **Input**: JIRA ticket ID (e.g., "PROJ-123") and optional AI summary flag
+- **Output**: Formatted ticket details with chronologically sorted comments and optional AI summary
+- **Usage**: Raycast command with text input for ticket ID and dropdown for summary option
+- **Features**:
+  - Retrieves ticket title, description, status, assignee, reporter, and timestamps
+  - Shows all comments sorted chronologically (oldest first) with author's first name
+  - Optional OpenAI-powered summarization of ticket and comments using GPT-4o-mini
+  - Supports both JIRA Cloud and Server instances
+  - Comprehensive error handling with clear status messages
+  - Requires JIRA_SERVER, JIRA_EMAIL, and JIRA_API_TOKEN environment variables
+  - Optional OPENAI_API_KEY for AI summary feature
