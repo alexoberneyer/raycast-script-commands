@@ -1,6 +1,17 @@
 # Raycast Script Commands
 
-A collection of Python-based Raycast script commands for productivity and automation.
+A collection of Python-based Raycast script commands for productivity and automation, now with enhanced error handling, logging, and performance optimizations.
+
+## 🚀 What's New in v0.2.0
+
+- **Enhanced Error Handling**: Comprehensive error handling with retry logic and detailed logging
+- **Structured Logging**: Rich console output with structured logging using `structlog`
+- **Type Safety**: Full type hints throughout the codebase with MyPy support
+- **Configuration Management**: Centralized configuration with Pydantic settings
+- **Performance Optimizations**: Connection pooling, caching, and optimized API calls
+- **Testing Suite**: Comprehensive unit tests with pytest
+- **Development Tools**: Pre-commit hooks, linting, and formatting automation
+- **Better CLI**: Enhanced command-line interface with Click
 
 ## Commands
 
@@ -103,32 +114,74 @@ The script creates an `open_todos.md` file with todos organized like this:
 
 ## Setup
 
+### Quick Start
+
 1. **Install dependencies:**
    ```bash
-   uv sync
+   make install
    ```
 
-2. **For OpenAI integrations (text polishing, JIRA summaries, and TTS):**
-   - Get your OpenAI API key from: https://platform.openai.com/api-keys
-   - Set environment variable:
-     ```bash
-     export OPENAI_API_KEY="your_api_key_here"
-     ```
-   - Or add to your `.env` file: `OPENAI_API_KEY=your_api_key_here`
+2. **Configure environment:**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your API keys and settings
+   ```
 
-3. **For JIRA integration (optional):**
-   - Get your JIRA API token from your Atlassian account settings
-   - Add to your `.env` file:
-     ```
-     JIRA_SERVER=https://your-domain.atlassian.net
-     JIRA_EMAIL=your-email@company.com
-     JIRA_API_TOKEN=your_api_token_here
-     ```
-
-4. **Install in Raycast:**
-   - Copy scripts to your Raycast script commands directory
+3. **Install in Raycast:**
+   - Copy scripts from `scripts/` directory to your Raycast script commands directory
    - Or use Raycast's "Create Script Command" feature and paste the script content
-   - Ensure scripts are executable: `chmod +x *.py`
+   - Ensure scripts are executable: `chmod +x scripts/*.py`
+
+### Development Setup
+
+1. **Install development dependencies:**
+   ```bash
+   make dev-setup
+   ```
+
+2. **Run tests:**
+   ```bash
+   make test
+   ```
+
+3. **Format code:**
+   ```bash
+   make format
+   ```
+
+4. **Run linting:**
+   ```bash
+   make lint
+   ```
+
+### Configuration
+
+The application uses a centralized configuration system with the following options:
+
+**Environment Variables (.env file):**
+```bash
+# OpenAI Configuration
+OPENAI_API_KEY=your_openai_api_key_here
+MODEL=gpt-4o-mini
+
+# Ollama Configuration  
+OLLAMA_MODEL=llama3.1:latest
+OLLAMA_BASE_URL=http://localhost:11434
+
+# JIRA Configuration
+JIRA_SERVER=https://your-domain.atlassian.net
+JIRA_EMAIL=your-email@company.com
+JIRA_API_TOKEN=your_jira_api_token_here
+
+# Application Configuration
+LOG_LEVEL=INFO
+MAX_RETRIES=3
+TIMEOUT=30
+```
+
+**API Keys Setup:**
+- **OpenAI**: Get your API key from https://platform.openai.com/api-keys
+- **JIRA**: Get your API token from your Atlassian account settings
 
 ## Requirements
 
@@ -139,18 +192,83 @@ The script creates an `open_todos.md` file with todos organized like this:
 
 ### Dependencies
 
+**Core Dependencies:**
 - **jira** (>=3.10.5) - JIRA Python SDK for API integration
 - **openai** (>=1.102.0) - OpenAI API client library
 - **ollama** (>=0.5.3) - Ollama Python client for local models
-- **pyperclip** (>=1.9.0) - Cross-platform clipboard utilities  
+- **pyperclip** (>=1.9.0) - Cross-platform clipboard utilities
 - **python-dotenv** (>=1.1.1) - Environment variable management
+
+**New Dependencies:**
+- **pydantic** (>=2.0.0) - Data validation and settings management
+- **click** (>=8.0.0) - Command-line interface framework
+- **rich** (>=13.0.0) - Rich text and beautiful formatting
+- **httpx** (>=0.25.0) - Modern HTTP client
+- **tenacity** (>=8.0.0) - Retry library for robust API calls
+- **structlog** (>=23.0.0) - Structured logging
+
+**Development Dependencies:**
+- **pytest** (>=7.0.0) - Testing framework
 - **ruff** (>=0.12.10) - Fast Python linter and code formatter
+- **mypy** (>=1.5.0) - Static type checker
+- **pre-commit** (>=3.0.0) - Git hooks framework
 
 ## Development
 
-Run linting and formatting:
+### Available Commands
+
 ```bash
-uv run ruff check          # Check for issues
-uv run ruff check --fix    # Auto-fix issues
-uv run ruff format         # Format code
+make help              # Show all available commands
+make install           # Install dependencies
+make install-dev       # Install development dependencies
+make test              # Run tests
+make test-coverage     # Run tests with coverage report
+make lint              # Run linting (ruff + mypy)
+make format            # Format code (black + isort + ruff)
+make clean             # Clean build artifacts
+make dev-setup         # Set up development environment
+```
+
+### Code Quality
+
+The project uses several tools to maintain code quality:
+
+- **Ruff**: Fast Python linter and formatter
+- **MyPy**: Static type checking
+- **Black**: Code formatting
+- **isort**: Import sorting
+- **Pre-commit**: Git hooks for automated checks
+
+### Testing
+
+Run the test suite:
+```bash
+make test
+```
+
+Run tests with coverage:
+```bash
+make test-coverage
+```
+
+### Project Structure
+
+```
+raycast-script-commands/
+├── src/raycast_scripts/          # Main source code
+│   ├── __init__.py
+│   ├── config.py                 # Configuration management
+│   ├── logging.py                # Structured logging
+│   ├── utils.py                  # Utility functions
+│   ├── get_todos.py              # Todo extraction
+│   ├── polish_clipboard_text.py  # OpenAI text polishing
+│   ├── polish_clipboard_text_ollama.py  # Ollama text polishing
+│   ├── speak_clipboard.py        # Text-to-speech
+│   ├── save_clipboard_to_audio.py # Audio file generation
+│   └── jira_ticket_info.py       # JIRA integration
+├── scripts/                      # Raycast script entry points
+├── tests/                        # Test suite
+├── pyproject.toml               # Project configuration
+├── Makefile                     # Development commands
+└── README.md                    # This file
 ```
