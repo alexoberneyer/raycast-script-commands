@@ -17,6 +17,7 @@ This is a Python project for Raycast script commands, managed using uv (an extre
 - `speak-clipboard.py` - Raycast script for converting clipboard text to speech using macOS TTS or OpenAI TTS API
 - `save-clipboard-to-audio.py` - Raycast script for saving clipboard text as MP3 audio files using macOS TTS or OpenAI TTS API
 - `jira-ticket-info.py` - Raycast script for fetching JIRA ticket information and comments
+- `llm-query.py` - Raycast script for querying various LLM models using the llm CLI tool
 - `.venv/` - Virtual environment (auto-managed by uv)
 
 ## Development Commands
@@ -131,3 +132,15 @@ The project currently uses:
   - Comprehensive error handling with clear status messages
   - Requires JIRA_SERVER, JIRA_EMAIL, and JIRA_API_TOKEN environment variables
   - Optional OPENAI_API_KEY for AI summary feature
+
+### llm-query.py
+- **Purpose**: Queries various LLM models using the llm CLI tool
+- **Input**: Required prompt text and optional model selection
+- **Output**: LLM response displayed and automatically copied to clipboard
+- **Usage**: Raycast command with text input for prompt and dropdown for model selection
+- **Features**:
+  - Supports multiple models: gpt-5, grok-4-latest, gemini/gemini-2.5-pro, anthropic/claude-opus-4-0, anthropic/claude-sonnet-4-0, anthropic/claude-opus-4-1-20250805
+  - Automatic clipboard copy of LLM response
+  - Error handling for missing llm CLI tool
+  - Compact mode for clean output
+  - Requires llm CLI tool to be installed (https://llm.datasette.io/en/stable/)

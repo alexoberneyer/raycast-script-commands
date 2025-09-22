@@ -26,6 +26,10 @@ Text-to-speech scripts with both macOS built-in TTS and OpenAI TTS support:
 1. **speak-clipboard.py** - Converts clipboard text to speech using macOS `say` command or OpenAI TTS API
 2. **save-clipboard-to-audio.py** - Saves clipboard text as MP3 audio file using macOS TTS or OpenAI TTS API
 
+### LLM Query
+
+A Raycast script command that queries various LLM models using the llm CLI tool.
+
 #### Polish Text Features
 
 - Three polishing modes: Standard Professional, Microsoft Teams Emojis, Regular Emojis
@@ -101,6 +105,21 @@ The script creates an `open_todos.md` file with todos organized like this:
 * [ ] More todos
 ```
 
+#### LLM Query Features
+
+**llm-query.py:**
+- Query multiple LLM models through a single interface
+- Supported models:
+  - gpt-5
+  - grok-4-latest
+  - gemini/gemini-2.5-pro
+  - anthropic/claude-opus-4-0
+  - anthropic/claude-sonnet-4-0
+  - anthropic/claude-opus-4-1-20250805
+- Automatic clipboard copy of responses
+- Compact mode for clean output
+- Clear error handling
+
 ## Setup
 
 1. **Install dependencies:**
@@ -116,7 +135,17 @@ The script creates an `open_todos.md` file with todos organized like this:
      ```
    - Or add to your `.env` file: `OPENAI_API_KEY=your_api_key_here`
 
-3. **For JIRA integration (optional):**
+3. **For llm CLI tool (for LLM Query script):**
+   - Install the llm CLI tool:
+     ```bash
+     pip install llm
+     # or
+     pipx install llm
+     ```
+   - Configure API keys for the models you want to use
+   - Documentation: https://llm.datasette.io/en/stable/
+
+4. **For JIRA integration (optional):**
    - Get your JIRA API token from your Atlassian account settings
    - Add to your `.env` file:
      ```
@@ -125,7 +154,7 @@ The script creates an `open_todos.md` file with todos organized like this:
      JIRA_API_TOKEN=your_api_token_here
      ```
 
-4. **Install in Raycast:**
+5. **Install in Raycast:**
    - Copy scripts to your Raycast script commands directory
    - Or use Raycast's "Create Script Command" feature and paste the script content
    - Ensure scripts are executable: `chmod +x *.py`
@@ -136,6 +165,7 @@ The script creates an `open_todos.md` file with todos organized like this:
 - uv package manager
 - macOS (for Raycast integration)
 - ffmpeg (for MP3 audio conversion)
+- llm CLI tool (for LLM Query script)
 
 ### Dependencies
 
