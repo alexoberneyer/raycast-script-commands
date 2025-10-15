@@ -54,33 +54,25 @@ def main():
 
         # Create input for text polishing based on selected mode
         if choice == "1":
-            input_text = f"""Polish and improve the following text. Make it more clear, professional, and well-structured while maintaining the original language, meaning and tone. Fix any grammar, spelling, or punctuation issues. Return only the polished text without any introduction or explanation:
+            input_text = f"""Please polish and structure the following text while keeping the original language and intent.
+
+This is the text:
 
 {clipboard_content}"""
         elif choice == "2":
-            input_text = f"""Polish and improve the following text. Make it more clear, professional, and well-structured while maintaining the original language, meaning and tone. Fix any grammar, spelling, or punctuation issues. Additionally, enhance the text by adding appropriate Microsoft Teams emojis from this list where suitable:
-- (smile) for positive/happy content
-- (y) for approval/thumbsup
-- (rocket) for progress/launch/success
-- (wink) for light humor
-- (thinkingface) for consideration/reflection  
-- (rofl) for very funny content
-- (lol) for funny content
+            input_text = f"""Please polish and structure the following text while keeping the original language and intent. After the salutation, insert a "(smile)", and conclude with a "(y)". These are the shortcuts for Microsoft teams emojis.
 
-Return only the polished text without any introduction or explanation:
+Return only the improved text, without any introduction or explanation.
+
+Here is the text:
 
 {clipboard_content}"""
         else:  # choice == "3"
-            input_text = f"""Polish and improve the following text. Make it more clear, professional, and well-structured while maintaining the original language, meaning and tone. Fix any grammar, spelling, or punctuation issues. Additionally, enhance the text by adding appropriate emojis where suitable:
-- 😃 for positive/happy content
-- 👍 for approval/thumbsup
-- 🚀 for progress/launch/success
-- 😉 for light humor
-- 🤔 for consideration/reflection
-- 🤣 for very funny content
-- 😂 for funny content
+            input_text = f"""Please polish and structure the following text while keeping the original language and intent. After the salutation, add 😃 emoji, and conclude with a 👍 emoji.
 
 Return only the polished text without any introduction or explanation:
+
+This is the text:
 
 {clipboard_content}"""
 
