@@ -8,7 +8,7 @@
 # Optional parameters:
 # @raycast.icon 🤖
 # @raycast.argument1 { "type": "text", "placeholder": "Prompt", "optional": false }
-# @raycast.argument2 { "type": "dropdown", "placeholder": "Model", "optional": true, "data": [{"title": "gpt-5", "value": "gpt-5"}, {"title": "gpt-5-codex", "value": "openai/gpt-5-codex"}, {"title": "grok", "value": "grok-4-latest"}, {"title": "gemini-pro", "value": "gemini/gemini-2.5-pro"}, {"title": "sonnet-45", "value": "anthropic/claude-sonnet-4-5"}, {"title": "opus-41", "value": "anthropic/claude-opus-4-1-20250805"}] }
+# @raycast.argument2 { "type": "dropdown", "placeholder": "Model", "optional": true, "data": [{"title": "gpt-5", "value": "gpt-5"}, {"title": "gpt-5-codex", "value": "openai/gpt-5-codex"}, {"title": "grok", "value": "grok-4-latest"}, {"title": "gemini-pro", "value": "gemini/gemini-2.5-pro"}, {"title": "sonnet-45", "value": "anthropic/claude-sonnet-4-5"}, {"title": "opus-41", "value": "anthropic/claude-opus-4-1-20250805"}, {"title": "haiku-45", "value": "claude-haiku-4.5"}] }
 
 # Documentation:
 # @raycast.description Query LLM models using the llm CLI tool
