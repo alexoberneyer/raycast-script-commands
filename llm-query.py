@@ -1,4 +1,5 @@
-#!/Users/alex/Code/raycast-script-commands/.venv/bin/python
+#!/bin/sh
+''''exec "$(dirname "$0")/.venv/bin/python" "$0" "$@" #'''
 
 # Required parameters:
 # @raycast.schemaVersion 1
@@ -34,7 +35,7 @@ def main():
         sys.exit(1)
 
     # Get LLM path from environment or use default
-    llm_path = os.getenv("LLM_PATH", "/Users/alex/.local/bin/llm")
+    llm_path = os.path.expanduser(os.getenv("LLM_PATH", "~/.local/bin/llm"))
 
     try:
         # Build the command - use path from env

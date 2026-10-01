@@ -1,4 +1,5 @@
-#!/Users/alex/Code/raycast-script-commands/.venv/bin/python
+#!/bin/sh
+''''exec "$(dirname "$0")/.venv/bin/python" "$0" "$@" #'''
 # Required parameters
 # @raycast.schemaVersion 1
 # @raycast.title Save Clipboard to Audio

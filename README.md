@@ -10,10 +10,11 @@ A Raycast script command that extracts todos from Markdown notes and consolidate
 
 ### Polish Clipboard Text
 
-Two variants of a text polishing script that improve and enhance text from your clipboard:
+Three variants of a text polishing script that improve and enhance text from your clipboard:
 
 1. **polish-clipboard-text.py** - Uses OpenAI models (requires API key)
 2. **polish-clipboard-text-ollama.py** - Uses local Ollama models (no API key needed)
+3. **polish-clipboard-claude.sh** - Runs the `writing:polish-text` skill in a headless Claude Code session (needs `claude` logged in at `~/.local/bin/claude`, no API key)
 
 ### JIRA Ticket Information
 
@@ -155,9 +156,9 @@ The script creates an `open_todos.md` file with todos organized like this:
      ```
 
 5. **Install in Raycast:**
-   - Copy scripts to your Raycast script commands directory
-   - Or use Raycast's "Create Script Command" feature and paste the script content
-   - Ensure scripts are executable: `chmod +x *.py`
+   - Add this folder as a Raycast script directory. Don't copy the scripts out:
+     each Python script starts its own `.venv/bin/python` from the folder it sits in
+   - Ensure scripts are executable: `chmod +x *.py *.sh`
 
 ## Requirements
 
