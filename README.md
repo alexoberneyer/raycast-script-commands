@@ -4,6 +4,12 @@ Personal [Raycast script commands](https://github.com/raycast/script-commands). 
 
 ## Commands
 
+### Agent in Notes
+
+`agent-in-notes.sh` opens a new [Ghostty](https://ghostty.org) window in `~/Code/notes` and starts the agent picked from the dropdown: Claude, Codex, pi or omp. The window stays open as a shell after the agent quits.
+
+Needs Ghostty and the agents on the login shell's `PATH`.
+
 ### Polish Clipboard (Claude)
 
 `polish-clipboard-claude.sh` polishes the text on the clipboard and writes it back. It runs the `writing:polish-text` skill in a headless Claude Code session, so the prompt lives in the skill, not here.
