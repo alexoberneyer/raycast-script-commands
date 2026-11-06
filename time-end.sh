@@ -2,7 +2,7 @@
 
 # Required parameters:
 # @raycast.schemaVersion 1
-# @raycast.title Time Stop
+# @raycast.title Time End
 # @raycast.mode silent
 
 # Optional parameters:
@@ -10,7 +10,7 @@
 # @raycast.packageName Time
 
 # Documentation:
-# @raycast.description Stop the running timewarrior timer
+# @raycast.description End the running timewarrior timer
 # @raycast.author alexoberneyer
 # @raycast.authorURL https://github.com/alexoberneyer
 
