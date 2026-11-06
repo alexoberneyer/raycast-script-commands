@@ -25,9 +25,9 @@ Four commands for [timewarrior](https://timewarrior.net). Starting a timer stops
 | `time-chosen.sh` | Starts `chosen`, for planned work. Optional title. |
 | `time-reactive.sh` | Starts `reactive`, for Teams, mail and interruptions. No prompt. |
 | `time-start.sh` | Starts `admin` or `learn` from a dropdown. Optional title. The other two call it. |
-| `time-stop.sh` | Stops the running timer. |
+| `time-end.sh` | Ends the running timer. |
 
-Each shows one line, such as `reactive · chosen deck review stopped after 1:13`. Bind the hotkeys in Raycast's settings.
+Each shows one line, such as `reactive · chosen deck review stopped after 1:13`. Run them from Raycast search: `tc`, `tr`, `ts`, `te`.
 
 Needs timewarrior from Homebrew at `/opt/homebrew/bin/timew`. Run `timew :yes` once in a terminal first, or its setup prompt fails without a TTY.
 
