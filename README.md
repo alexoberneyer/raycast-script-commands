@@ -10,12 +10,6 @@ Personal [Raycast script commands](https://github.com/raycast/script-commands). 
 
 Needs Ghostty and the agents on the login shell's `PATH`.
 
-### Polish Clipboard (Claude)
-
-`polish-clipboard-claude.sh` polishes the text on the clipboard and writes it back. It runs the `writing:polish-text` skill in a headless Claude Code session, so the prompt lives in the skill, not here.
-
-Needs `claude` installed at `~/.local/bin/claude` and logged in. Takes about 10 seconds. A toast says "Polished" or "Not polished, clipboard unchanged".
-
 ### Time
 
 Four commands for [timewarrior](https://timewarrior.net). Starting a timer stops the one running.
